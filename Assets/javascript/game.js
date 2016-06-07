@@ -14,9 +14,15 @@
 	};
 
 	//Character objects.
-	var han = new Character("Han", "Solo", 100, 5, 10);
-	var rey = new Character("Rey", "", 100, 5, 10);
-	var boba = new Character("Boba", "Fett", 100, 7, 8);
+	var han = new Character("Han", "Solo", 100, 5, 8);
+	var rey = new Character("Rey", "", 150, 27, 5);
+	var boba = new Character("Boba", "Fett", 190, 7, 20);
+	var obi = new Character("Obi", "wan Kenobi", 120, 10, 10)
+	var princess = new Character("Princess", "Leia", 135, 9, 15)
+	var luke = new Character("Luke", "Skywalker", 170, 13, 20)
+	var chewbacca = new Character("Chewbacca", "", 160, 14, 18)
+	var jabba = new Character("Jabba", "the Hutt", 210, 9, 20)
+	var darth = new Character("Darth", "Vader", 250, 8, 19)
 
 	//An array to hold all available characters.
 	// var charArray = [han, rey, boba];
@@ -25,10 +31,16 @@
 	var charObj = {
 		Han: han,
 		Rey: rey,
-		Boba: boba
+		Boba: boba,
+		Obi: obi,
+		Princess: princess,
+		Luke: luke,
+		Chewbacca: chewbacca,
+		Jabba: jabba,
+		Darth: darth
 	}
 
-	//Variables to track the current user character and enemy character.
+	//Variables to track the current user character, enemy character, and the remaining pool of enemies.
 	var lightSide;
 	var darkSide;
 	var counter = Object.keys(charObj).length-1;
@@ -56,9 +68,11 @@
 		},5000)
 	};
 
-	//Creates a div for each character ("char"), and places it in a container div ("div").  
-	//"char" argument must be a Character object
-
+	//This function populates the inital seleciton of characters, and updates the character's thumbnail Divs while in combat
+	//targetDiv: Div into which the character's thumbnail should be placed onscreen
+	//wrapperDiv: allows the thumbnail to be wrapped in a "sizing" div 
+	//char: argument must be a Character object
+	//emptyFirst: optionally clears out the targetDiv prior to insertion; leave blank to simply append
 	function makeChar(targetDiv, wrapperDiv, char, emptyFirst){
 		if (emptyFirst){$(targetDiv).empty()};
 		$(targetDiv).append(
@@ -74,7 +88,7 @@
 		)
 	};
 
-		//Moves the selected character DIV to the appropriate part of the screen, and reorganized the underlying character objects.
+	//Moves the selected character DIV to the appropriate part of the screen, and reorganizes the underlying character objects.
 	function moveChar(){
 		$(".thumbnail").on("click", function(){
 			var parent = $(this).parent();
@@ -96,6 +110,7 @@
 		});
 	}
 
+	//Handles the FIGHT button
 	function fight (){
 		$("#fightButton").on("click", function(){
 			darkSide.health -= lightSide.currentAttack;
@@ -118,109 +133,16 @@
 				}
 			}
 	
-			if(lightSide.health <=0){
+			if(lightSide.health <= 0){
 				return alertBox("You are not a Jedi yet - GAME OVER.");
 				//Change button to "play again"
 			}
 		});
 	}
 
-		// function makeChar(div, char){
-	// 	$(div).append(
-	// 		"<div class='col-xs-4 col-md-2'>" +
-	// 			"<div class='thumbnail' id='" + char.firstName + "'>" + 
-	// 				"<a href='#'>" +
-	// 					"<h3 class='text-center'>" + char.name + "</h3>" +
-	// 					"<img src='" + char.source + "' alt='" + char.name + "' class='img-thumbnail'>" +
-	// 					"<p class='text-center' id ='" + char + "health'>" + char.health + "</p>" +
-	// 				"</a>" +
-	//     		"</div>" +
-	// 		"</div>"
-	// 	)
-	// };
-
-	// function getId(element, attribute){
-	// 	return $(element).attr(attribute);
-	// };
-
-	// function makeChar(div, char){
-	// 	$(div).append(
-	// 		"<div class='thumbnail' id='" + char.firstName + "'>" + 
-	// 			"<a href='#'>" +
-	// 				"<h3 class='text-center'>" + char.firstName + char.lastName + "</h3>" +
-	// 				"<img src='" + char.source + "' alt='" + char.firstName + char.lastName + "' class='img-thumbnail'>" +
-	// 				"<p class='text-center'>" + char.health + "</p>" +
-	// 			"</a>" +
- //    		"</div>"
-	// 	)
-	// }
-
-	//Selects a random opponent and moves him/her to the main plaing area.
-	// function villain(){
-	// 	var charIndex = getRandomInt(charArray.length);
-	// 	var vil = "#" + charArray[charIndex].firstName;
-	// 	$(vil).appendTo("#enemyDiv");
-	// 	//$(/*wrapping Div*/).remove();//Deletes the div holding the character's thumbnail.
-	// 	combatArray.push(charArray.splice(charIndex, 1)[0]);
-	// 	console.log("villainVar: " + villainVar);
-	// };
-
-	// //Moves the user-selected character, and an opponent (via the villain function), to the main playing area.
-	// function hero(){
-	// 	$(".thumbnail").on("click", function(){
-	// 		$(this).appendTo("#playerDiv");
-	// 		//$(/*wrapping Div*/).remove();//Deletes the div holding the character's thumbnail.
-	// 		$("#fightButton").append("<button type='button' class='btn btn-danger btn-block'>Fight!</button>");
-	// 		//combatArray = charArray.splice(, 1);
-	// 		console.log("heroVar: " + heroVar);
-	// 		villain();
-	// 	})
-	// 	return;
-	// };
-
-	// //Moves the selected character DIV to the appropriate part of the screen, and reorganized the underlying character objects.
-	// function moveChar(){
-	// 	$(".thumbnail").on("click", function(){
-	// 		var parent = $(this).parent();
-	// 		var selectedChar = $(this).attr("id");
-	// 		//Idles the moveChar function if the user's character and opponent are already selected.
-	// 		if (combatants < 2){
-	// 			//Moves the enemy character to the appropriate DIV, and adds the corresponding object to combatObj;
-	// 			if (combatants = 1){
-	// 				$(this).appendTo("#darkSideDiv");
-	// 				darkSide = charObj[selectedChar];
-	// 			}
-	// 			//Moves the user's character to the appropriate DIV, and adds the corresponding object to combatObj;
-	// 			else if (combatants = 0){
-	// 				$(this).appendTo("#lightSideDiv");
-	// 				lightSide = charObj[selectedChar];
-	// 			}
-	// 			//In either scenario, this removes the character thumbail's enclosing div
-	// 			$(parent).remove();
-	// 		}	
-	// 	});
-	// }
-
-
-
-
-	//Another array to hold the current combatants, and variables to more easily refer to them.
-	
-
-	// var combatArray = [];
-	// var heroVar = combatArray[0];
-	// var villainVar = combatArray[1];
-	
-		
 //Begin--------------------------------------------------------------------
 
-	//Populates the charactersRow div with character divs.
-	// var i = 0;
-	// while(i < charArray.length){
-	// 	makeChar("#charactersRow", charArray[i]);
-	// 	i++;
-	// }
-
+	//Populates the initial character selection DIV
 	for (var i in charObj){
 		makeChar("#charactersRow", "<div class='col-xs-4 col-md-2'>", charObj[i]);
 	};
@@ -232,6 +154,8 @@
 	$("#fightButton").append("<button type='button' class='btn btn-danger btn-block'>Fight!</button>");
 
 	fight();
+
+
 	
 
 
