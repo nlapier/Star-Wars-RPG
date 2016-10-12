@@ -93,6 +93,7 @@
 		$(".thumbnail").on("click", function(){
 			var parent = $(this).parent();
 			var selectedChar = $(this).attr("id");
+
 			//Moves the enemy character to the appropriate DIV, and adds the corresponding object to combatObj;
 			if (lightSide && darkSide == undefined){
 				$(this).appendTo("#darkSideDiv");
@@ -104,6 +105,7 @@
 				$(this).appendTo("#lightSideDiv");
 				lightSide = charObj[selectedChar];
 				$(parent).remove();
+				$("#fightButton").append("<button type='button' class='btn btn-danger btn-block'>Fight!</button>");
 				return alertBox("Select an enemy to fight.")
 			}
 			
@@ -123,18 +125,18 @@
 			if (darkSide.health <= 0) {
 				counter--;
 				if (counter === 0) {
-					return alertBox("The force is strong with you - you win!");
+					alertBox("The force is strong with you - you win!");
 				}
 	
 				else {
 					darkSide = undefined;
 					$("#darkSideDiv").empty();
-					return alertBox("You are victorious! Select another character to fight.");
+					alertBox("You are victorious! Select another character to fight.");
 				}
 			}
 	
 			if(lightSide.health <= 0){
-				return alertBox("You are not a Jedi yet - GAME OVER.");
+				alertBox("You are not a Jedi yet - GAME OVER.");
 				//Change button to "play again"
 			}
 		});
@@ -150,8 +152,6 @@
 	alertBox("Select a character");
 
 	moveChar();
-
-	$("#fightButton").append("<button type='button' class='btn btn-danger btn-block'>Fight!</button>");
 
 	fight();
 

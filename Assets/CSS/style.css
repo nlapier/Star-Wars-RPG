@@ -2,6 +2,28 @@
 	background-image: url("http://wallpapercave.com/wp/iYy4Rai.png");
 }*/
 
+/*
+@font-face {
+    font-family: "SW1";
+    src: url("Assets/fonts/SFDistantGalaxy-Italic.ttf")
+    format("truetype");
+}*/
+
+
+h1{
+	font-size: 70pt;
+}
+
+.yellow{
+	color: #FED700;
+}
+
+#darkSideDiv, #lightSideDiv{
+	border: 2px grey solid;
+}
+
+
+/*Courtesy of CSS Tricks*/
 body { 
   background: url("http://wallpapercave.com/wp/iYy4Rai.png") no-repeat center center fixed; 
   -webkit-background-size: cover;
