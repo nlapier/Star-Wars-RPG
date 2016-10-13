@@ -9,7 +9,7 @@ const app = express();
 //Express setup
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({
     extended: false
 }));
